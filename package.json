@@ -10,7 +10,8 @@
     ".": "./dist/remark-figure-caption.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE.txt"
   ],
   "keywords": [
     "remark",
