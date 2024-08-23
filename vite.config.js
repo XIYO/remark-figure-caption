@@ -5,7 +5,6 @@ export default defineConfig({
         lib: {
             entry: 'src/remarkFigureCaption.js',
             formats: ['es'],
-            fileName: 'index',
         },
         rollupOptions: {
             external: ['unist-util-visit'],
