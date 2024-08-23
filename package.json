@@ -1,24 +1,33 @@
 {
-  "name": "remark-figure",
-  "private": true,
+  "name": "remark-figure-caption",
+  "description": "A remark plugin to wrap images with next line blockquote in figure elements with captions.",
+  "author": "xiyo",
+  "license": "MIT",
+  "repository": "xiyo/remark-figure-caption",
   "version": "0.0.0",
   "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "keywords": [
+    "remark",
+    "plugin",
+    "markdown",
+    "figure",
+    "figcaption"
+  ],
   "scripts": {
+    "build": "vite build",
     "test": "vitest"
   },
-  "devDependencies": {
-    "remark": "^15.0.1",
-    "remark-parse": "^11.0.0",
-    "remark-stringify": "^11.0.0",
-    "vitest": "^2.0.5"
-  },
-  "packageManager": "pnpm@9.8.0+sha512.8e4c3550fb500e808dbc30bb0ce4dd1eb614e30b1c55245f211591ec2cdf9c611cabd34e1364b42f564bd54b3945ed0f49d61d1bbf2ec9bd74b866fcdc723276",
   "dependencies": {
-    "@shikijs/rehype": "^1.14.1",
-    "rehype-stringify": "^10.0.0",
-    "remark-rehype": "^11.1.0",
-    "unified": "^11.0.5",
-    "unist-util-is": "^6.0.0",
     "unist-util-visit": "^5.0.0"
-  }
+  },
+  "devDependencies": {
+    "vite": "^5.4.2",
+    "vitest": "^2.0.5",
+    "unified": "^11.0.5",
+    "remark-parse": "^11.0.0"
+  },
+  "packageManager": "pnpm@9.8.0+sha512.8e4c3550fb500e808dbc30bb0ce4dd1eb614e30b1c55245f211591ec2cdf9c611cabd34e1364b42f564bd54b3945ed0f49d61d1bbf2ec9bd74b866fcdc723276"
 }

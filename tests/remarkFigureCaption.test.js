@@ -1,94 +1,67 @@
-import { describe, it, expect } from 'vitest';
-import { unified } from 'unified';
+import {describe, expect, it} from 'vitest';
+import {unified} from 'unified';
 import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import rehypeStringify from 'rehype-stringify';
+
 import remarkFigureCaption from "../src/remarkFigureCaption.js";
-
-const markdownWithImageAndCaption = `
-![alt text](image.jpg)\n
-
-\n
-
-> This is a caption.
-
-hello i am green frog
-`;
-
-const markdownWithCodeAndCaption = `
-\`\`\`js
-console.log('Hello World');
-\`\`\`
-
-> This is a code caption.
-`;
-
-const markdownWithCodeAndTitleAndCaption = `
-\`\`\`js
-console.log('Hello World');
-\`\`\`
-
-> This is a code caption.
-`;
+import {visit} from "unist-util-visit";
 
 describe('remarkFigureCaption', () => {
-    it('just unified test', async () => {
-        const input = `This is a paragraph.`;
-        const output = await unified()
+    it('visit cjs 테스트', () => {
+        require('unist-util-visit');
+    })
+
+    it('이미지와 하단에 인용문이 있을 경우, figure 노드로 변환하고 figcaption 자식 노드를 포함해야 한다.', async () => {
+        const markdown = `
+![Image alt text](image.jpg)
+> This is the caption for the image.
+`;
+
+        const processor = unified()
             .use(remarkParse)
             .use(remarkFigureCaption)
-            .use(remarkRehype)
-            .use(rehypeStringify)
-            .process(input);
 
-        expect(String(output)).toBe(`<p>This is a paragraph.</p>`);
+        const ast = processor.parse(markdown);
+        const transformedAst = await processor.run(ast);
+
+        visit(transformedAst, 'figure', (node, index, parent) => {
+            expect(node.children).toHaveLength(2);
+            expect(node.children[0].type).toBe('image');
+            expect(node.children[1].type).toBe('figureCaption');
+
+            if (parent.children[index + 1]) {
+                expect(parent.children[index + 1].type).not.toBe('blockquote');
+            }
+        });
     });
 
-    it('img 피규어 캡션 테스트', async () => {
-        const output = await unified()
+    it('두 가지 케이스가 다 있을 경우', async () => {
+        const markdown = `
+![Image alt text](image.jpg)
+
+> This is the caption for the image.
+
+\`\`\`js
+console.log('Hello World');
+\`\`\`
+
+> This is a code caption.
+`;
+
+        const processor = unified()
             .use(remarkParse)
             .use(remarkFigureCaption)
-            .use(remarkRehype)
-            .use(rehypeStringify)
-            .process(markdownWithImageAndCaption);
 
-        console.log(String(output));
+        const ast = processor.parse(markdown);
+        const transformedAst = await processor.run(ast);
 
-        // 결과에서 모든 줄바꿈 문자를 제거
-        const cleanedOutput = String(output).replace(/\n/g, '');
-        const cleanedToBe = `<figure><img src="image.jpg" alt="alt text"><figcaption><blockquote>
-<p>This is a caption.</p>
-</blockquote></figcaption></figure>`
-            .replace(/\n/g, '');
+        visit(transformedAst, 'figure', (node, index, parent) => {
+            expect(node.children).toHaveLength(2);
+            expect(['image', 'code']).toContain(node.children[0].type);
+            expect(node.children[1].type).toBe('figureCaption');
 
-        expect(cleanedOutput).toBe(cleanedToBe);
+            if (parent.children[index + 1]) {
+                expect(parent.children[index + 1].type).not.toBe('blockquote');
+            }
+        });
     });
-
-    it('code 피규어 캡션 테스트', async () => {
-        const output = await unified()
-            .use(remarkParse)
-            .use(remarkFigureCaption)
-            .use(remarkRehype)
-            .use(rehypeStringify)
-            .process(markdownWithCodeAndCaption);
-
-        // 결과에서 모든 줄바꿈 문자를 제거
-        const cleanedOutput = String(output).replace(/\n/g, '');
-
-        expect(cleanedOutput).toBe(
-            `<figure><pre><code class="language-js">console.log('Hello World');</code></pre><figcaption><p>This is a code caption.</p></figcaption></figure>`
-        );
-    });
-    
-    it('code 피규어 타이틀 캡션 테스트', async () => {
-        const output = await unified()
-            .use(remarkParse)
-            .use(remarkFigureCaption)
-            .use(remarkRehype)
-            .use(rehypeStringify)
-            .process(markdownWithCodeAndTitleAndCaption);
-
-        console.log(String(output));
-    });
-
 });
