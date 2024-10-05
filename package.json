@@ -4,7 +4,7 @@
   "author": "xiyo",
   "license": "MIT",
   "repository": "xiyo/remark-figure-caption",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "exports": {
     ".": "./dist/remark-figure-caption.js"
