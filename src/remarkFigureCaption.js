@@ -7,13 +7,30 @@ export default function remarkFigureCaption() {
                 !(
                     (
                         (node.type === 'paragraph' && node.children.length === 1 && node.children[0].type === 'image') ||
+                        (node.type === 'paragraph' && node.children.length === 1 && node.children[0].type === 'link' && node.children[0].children.length === 1 && node.children[0].children[0].type === 'image') ||
                         (node.type === 'code')
                     ) &&
                     parent.children[index + 1] && parent.children[index + 1].type === 'blockquote'
                 )
             ) return;
 
-            const mainNode = node.type === 'code' ? node : node.children[0];
+            // 조건문에서 필수 노드가 있을 경우에만 진행되도록 분기를 하기 때문에 디폴트 케이스가 불필요
+            let mainNode;
+            switch (node.type) {
+                case 'code':
+                    mainNode = node;
+                    break;
+                case 'paragraph':
+                    switch (node.children[0].type) {
+                        case 'image':
+                            mainNode = node.children[0];
+                            break;
+                        case 'link':
+                            mainNode = node.children[0];
+                            break;
+                    }
+            }
+
             const captionNode = parent.children[index + 1];  // blockquote 노드
 
             const figureNode = {
