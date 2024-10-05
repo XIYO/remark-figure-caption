@@ -22,7 +22,8 @@
   ],
   "scripts": {
     "build": "vite build",
-    "test": "vitest"
+    "test": "vitest",
+    "publish": "pnpm publish"
   },
   "dependencies": {
     "unist-util-visit": "^5.0.0"
