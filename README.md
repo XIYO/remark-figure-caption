@@ -49,6 +49,11 @@ processor.process(markdown).then((file) => {
 ## Examples
 
 ### Image with Caption
+
+**Example Usage**:
+
+![Image and Caption](/resource/image.png)
+
 **Markdown Input**:
 ```markdown
 ![cat](/image.jpg)
@@ -65,6 +70,11 @@ processor.process(markdown).then((file) => {
 ```
 
 ### Code Block with Caption
+
+**Example Usage**:
+
+![Code and Caption](/resource/code.png)
+
 **Markdown Input**:
 ````markdown
 ```javascript
@@ -86,6 +96,11 @@ console.log(a);
 ```
 
 ### Linked Image with Caption
+
+**Example Usage**:
+
+![Link with Image and Caption](/resource/link.png)
+
 **Markdown Input**:
 ```markdown
 [![cat](/image.jpg)](https://myHome.com/link)

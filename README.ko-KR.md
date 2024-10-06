@@ -50,6 +50,11 @@ processor.process(markdown).then((file) => {
 ## 예제
 
 ### 이미지와 설명
+
+**사용 예시**:
+
+![이미지와 캡션](/resource/image.png)
+
 **마크다운 입력**:
 ```markdown
 ![cat](/image.jpg)
@@ -66,7 +71,13 @@ processor.process(markdown).then((file) => {
 ```
 
 ### 코드 블럭과 설명
+
+**사용 예시**:
+
+![코드와 캡션](/resource/code.png)
+
 **마크다운 입력**:
+
 ````markdown
 ```javascript
 let a = 1;
@@ -87,6 +98,11 @@ console.log(a);
 ```
 
 ### 링크로 감싸진 이미지와 설명
+
+**사용 예시**:
+
+![이미지를 포함한 링크와 캡션](/resource/link.png)
+
 **마크다운 입력**:
 ```markdown
 [![cat](/image.jpg)](https://myHome.com/link)
