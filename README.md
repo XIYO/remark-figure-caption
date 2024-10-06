@@ -5,7 +5,9 @@ A remark plugin to transform images or code blocks followed by blockquotes into 
 ## Installation
 
 ```bash
-npm install remark-figure-caption
+npm install remark-figure-caption@latest
+// or
+npm install remark-figure-caption@1.0.6
 ```
 
 ## Usage
