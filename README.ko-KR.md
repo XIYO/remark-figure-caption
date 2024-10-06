@@ -1,5 +1,6 @@
 
-[english](/README.md) "한국어"
+[english](/README.md)
+
 # remark-figure-caption: 마크다운 이미지 및 코드 블럭에 캡션 추가하기
 
 **remark-figure-caption**은 [Remark](https://github.com/remarkjs/remark)의 플러그인으로, 이미지와 코드 블럭에 캡션을 추가할 수 있도록 도와줍니다. 이미지나 코드 블럭 아래에 인용문을 작성하면 `<figcaption>` 요소로 변환하여 캡션으로 만들어줍니다.
@@ -108,4 +109,3 @@ MIT
 
 ## 기여
 기여, 이슈 제기, 기능 요청 모두 환영합니다!
-

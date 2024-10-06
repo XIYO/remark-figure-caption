@@ -1,21 +1,29 @@
-# remark-figure-caption
+[한국어](/README.ko-KR.md)
 
-A remark plugin to transform images or code blocks followed by blockquotes into figures with captions.
+# remark-figure-caption: Add Captions to Markdown Images and Code Blocks
 
-## Installation
+**remark-figure-caption** is a plugin for [Remark](https://github.com/remarkjs/remark) that helps add captions to images and code blocks. By writing a blockquote under an image or code block, it converts the blockquote into a `<figcaption>` element as a caption.
 
+## Key Features
+- **Images**: Converts blockquotes under images into captions.
+- **Code Blocks**: Converts blockquotes under code blocks into captions.
+- **Linked Images**: Converts blockquotes under images wrapped in links into captions.
+
+## Installation and Usage
+
+### Installation
 ```bash
 npm install remark-figure-caption@latest
-// or
+```
+
+To install a specific version:
+```bash
 npm install remark-figure-caption@1.0.6
 ```
 
-## Usage
-
-This plugin can be used with the [unified](https://github.com/unifiedjs/unified) ecosystem, specifically with [remark](https://github.com/remarkjs/remark) for Markdown processing.
-
+### Usage
 ```javascript
-import {unified} from 'unified'
+import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkFigureCaption from 'remark-figure-caption'
 import remarkRehype from 'remark-rehype'
@@ -31,60 +39,72 @@ const markdown = `
 ![Image alt text](image.jpg)
 
 > This is the caption for the image.
-
-\`\`\`js
-console.log('Hello World');
-\`\`\`
-
-> This is a code caption.
 `
 
 processor.process(markdown).then((file) => {
-  console.log(String(file))
+  console.log(String(file)) // <figure><img src="image.jpg"...</figure>
 })
 ```
 
-## How it works
+## Examples
 
-This plugin transforms:
-
-1. An image immediately followed by a blockquote
-2. A code block immediately followed by a blockquote
-
-Into a `<figure>` element containing the image or code block, with the blockquote content as a `<figcaption>`.
-
-### Example Input
-
+### Image with Caption
+**Markdown Input**:
 ```markdown
-![Image alt text](image.jpg)
+![cat](/image.jpg)
 
-> This is the caption for the image.
-
-\`\`\`js
-console.log('Hello World');
-\`\`\`
-
-> This is a code caption.
+> The cat is running around.
 ```
 
-### Example Output (HTML)
-
+**Output HTML**:
 ```html
 <figure>
-  <img src="image.jpg" alt="Image alt text">
-  <figcaption>This is the caption for the image.</figcaption>
+  <img src="/image.jpg" alt="cat">
+  <figcaption>The cat is running around.</figcaption>
 </figure>
+```
 
+### Code Block with Caption
+**Markdown Input**:
+````markdown
+```javascript
+let a = 1;
+console.log(a);
+```
+
+> Outputs the log.
+````
+
+**Output HTML**:
+```html
 <figure>
-  <pre><code class="language-js">console.log('Hello World');</code></pre>
-  <figcaption>This is a code caption.</figcaption>
+  <pre><code class="language-javascript">let a = 1;
+console.log(a);
+</code></pre>
+  <figcaption>Outputs the log.</figcaption>
+</figure>
+```
+
+### Linked Image with Caption
+**Markdown Input**:
+```markdown
+[![cat](/image.jpg)](https://myHome.com/link)
+
+> The cat is sleeping.
+```
+
+**Output HTML**:
+```html
+<figure>
+  <a href="https://myHome.com/link">
+    <img src="/image.jpg" alt="cat">
+  </a>
+  <figcaption>The cat is sleeping.</figcaption>
 </figure>
 ```
 
 ## License
-
 MIT
 
 ## Contributing
-
-Contributions, issues, and feature requests are welcome!
+Contributions, issue submissions, and feature requests are all welcome!
